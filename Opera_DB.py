@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
 
 # if __name__ == '__main__':
-#     db = pymysql.connect('wangyaohua.cn','wangyaohua','WanG68313157','Gra')
+#     db = pymysql.connect('db_host','db_user','db_pass','db_name')
 #     print(db)
 #     cursor = db.cursor()
 #     cursor.execute("show tables;")
