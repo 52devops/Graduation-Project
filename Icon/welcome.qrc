@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="we">
+    <file>close.png</file>
+    <file>welcome.jpg</file>
+    <file>min.png</file>
+  </qresource>
+</RCC>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>mainwindow</class>
+ <widget class="QMainWindow" name="mainwindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>939</width>
+    <height>584</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#mainwindow {border-image: url(:/we/welcome.jpg);}</string>
+  </property>
+  <widget class="QWidget" name="BBB">
+   <property name="styleSheet">
+    <string notr="true">#BBB {border-image: url(:/we/welcome.jpg);}</string>
+   </property>
+   <widget class="QPushButton" name="ReadMe">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>480</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>使用说明</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Upload">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>480</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>上传匹配数据</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Config">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>480</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>配置</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Start">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>480</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>开始</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="author">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>480</y>
+      <width>191</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Agency FB</family>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Author_By：王耀华</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="ui_exit">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>0</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#ui_exit {border-image: url(:/we/close.png);}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="ui_hit">
+    <property name="geometry">
+     <rect>
+      <x>840</x>
+      <y>0</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#ui_hit {border-image: url(:/we/min.png);}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Welcome_tite">
+    <property name="geometry">
+     <rect>
+      <x>235</x>
+      <y>1</y>
+      <width>480</width>
+      <height>52</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>华文楷体</family>
+      <pointsize>28</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>欢迎使用智能报警系统</string>
+    </property>
+   </widget>
+   <zorder>ReadMe</zorder>
+   <zorder>Upload</zorder>
+   <zorder>Config</zorder>
+   <zorder>Start</zorder>
+   <zorder>ui_hit</zorder>
+   <zorder>ui_exit</zorder>
+   <zorder>Welcome_tite</zorder>
+   <zorder>author</zorder>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>939</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources>
+  <include location="../fina/welcome.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>ui_exit</sender>
+   <signal>clicked()</signal>
+   <receiver>mainwindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>919</x>
+     <y>45</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>894</x>
+     <y>91</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ui_hit</sender>
+   <signal>clicked()</signal>
+   <receiver>mainwindow</receiver>
+   <slot>showMinimized()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>857</x>
+     <y>40</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>858</x>
+     <y>140</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
