@@ -18,7 +18,7 @@ class My_DB(object):
         pass
 
 if __name__ == '__main__':
-    test = My_DB('wangyaohua.cn','wangyaohua','WanG68313157','Gra')
+    test = My_DB('db_host','db_user','db_pass','db_name')
     test.push('welcome','welcome.jpg')
 
 
