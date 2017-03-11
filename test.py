@@ -10,6 +10,7 @@ from 毕设.毕设.config import *
 from 毕设.毕设.Icon import icon
 from 毕设.毕设.Readme import Ui_Readme
 from 毕设.毕设.Opera_DB import My_DB
+from 毕设.毕设.ProgressBar import ProgressBar
 import re
 import pickle
 class Ui_mainwindow(object):
@@ -84,6 +85,7 @@ class Ui_mainwindow(object):
         self.ui_hit.clicked.connect(mainwindow.showMinimized)
         self.ReadMe.clicked.connect(self.readme)
         self.Upload.clicked.connect(self.upload)
+        self.Start.clicked.connect(self.start)
         QtCore.QMetaObject.connectSlotsByName(mainwindow)
         self.LoadData()
         # mainwindow.set
@@ -116,11 +118,19 @@ class Ui_mainwindow(object):
                                                   "多文件选择",
                                                   "C:/",
                                                   "All Files (*)")
-        db = My_DB('db_ip','db_user','WanG68313157','Gra')
+        db = My_DB()
         for i in files:
             filename = re.sub(".*/","",i)
             path = i
             db.push(filename,path)
+
+    def start(self):
+        fourth = My_dia()
+        Start = ProgressBar(fourth)
+        fourth.exec_()
+
+        #     print('')
+        # fourth.exec_()
 
     def retranslateUi(self, mainwindow):
         _translate = QtCore.QCoreApplication.translate

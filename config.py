@@ -112,9 +112,9 @@ class Ui_config_ui(object):
         if '' in data.values():
             QMessageBox.warning(self.ui,'Warning','请输入正确的格式')
         else:
-            pro = pickle.dumps(data)
+            # pro = pickle.dumps(data)
             f = open('config.txt','wb')
-            f.write(pro)
+            pickle.dump(data,f)
             f.close()
             self.ui.close()
 
