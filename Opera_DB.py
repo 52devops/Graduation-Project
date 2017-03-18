@@ -3,7 +3,7 @@ import os
 import pickle
 class My_DB(object):
     def __init__(self):
-        f = open('config.txt','rb')
+        f = open('config.ini','rb')
         data = pickle.load(f)
         f.close()
         mail = data['mail']
@@ -22,6 +22,10 @@ class My_DB(object):
         self.cursor.execute(command,args)
         self.db.commit()
         self.db.close()
+    def check(self,command):
+        self.cursor.execute(command)
+        self.db.close()
+        return self.cursor.fetchone()
     def pull(self):
         name = []
         data = []
@@ -43,7 +47,7 @@ class My_DB(object):
             f.write(name_data[i])
             print(name_data[i])
             f.close()
-
+        self.db.close()
 if __name__ == '__main__':
     test = My_DB()
     # test.push('welcome','welcome.jpg')

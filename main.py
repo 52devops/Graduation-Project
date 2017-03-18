@@ -6,13 +6,15 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from 毕设.毕设.config import *
-from 毕设.毕设.Icon import icon
-from 毕设.毕设.Readme import Ui_Readme
-from 毕设.毕设.Opera_DB import My_DB
-from 毕设.毕设.ProgressBar import ProgressBar
-import re
-import pickle
+from Intelligent.My_Pro.config import *
+from Intelligent.My_Pro.Icon import icon
+from Intelligent.My_Pro.Readme import Ui_Readme
+from Intelligent.My_Pro.Opera_DB import My_DB
+from Intelligent.My_Pro.ProgressBar import ProgressBar
+from Intelligent.My_Pro.match import match
+from Intelligent.My_Pro.face import face_det
+import re,os,shutil,threading
+import pickle,time,threading
 class Ui_mainwindow(object):
     def setupUi(self, mainwindow):
         self.ui = mainwindow
@@ -92,7 +94,7 @@ class Ui_mainwindow(object):
 
     def LoadData(self):
         try:
-            f = open('config.txt', 'rb')
+            f = open('config.ini', 'rb')
             data = pickle.loads(f.read())
             if '' in data.values():
                 raise
@@ -125,9 +127,42 @@ class Ui_mainwindow(object):
             db.push(filename,path)
 
     def start(self):
-        fourth = My_dia()
-        Start = ProgressBar(fourth)
-        fourth.exec_()
+        Total_file = []
+        db = My_DB()
+        # count = db.check('select count(*) from Pic')
+        reply = QMessageBox.question(self.ui, 'Message', '是否拉取远端数据',
+                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            filename  = os.getcwd()
+            filename =  filename + "\\" + "Pic" + "\\"
+            shutil.rmtree(filename)
+            os.mkdir(filename)
+            # os.remove()
+            db.pull()
+        else:
+            pass
+        Go = face_det()
+        Go.To_start()
+        for root, dirs, file in os.walk(r"C:\Users\\tiehu\Desktop\project\Intelligent\My_Pro\Pic"):
+            Total_file.append(r"C:\Users\tiehu\Desktop\project\Intelligent\My_Pro\Pic" + '\\' + file[0])
+        # file_match, ok1 = QFileDialog.getOpenFileName(self.ui,
+        #                                           "选择图像",
+        #                                           "C:/",
+        #                                           "格式 (*)")
+        # match(file_match,r'C:\Users\tiehu\Desktop\project\Intelligent\My_Pro\Pic\4.jpg')
+        # match(file_match,r'C:\Users\tiehu\Desktop\project\OpenCV\4.jpg')
+        # print(Total_file)
+        # def loop():
+        #     for i in Total_file:
+        #         match(file_match,i)
+        # t = threading.Thread(target=loop,name='match')
+        # t.start()
+        # t.join()
+
+
+        # fourth = My_dia()
+        # Start = ProgressBar(fourth)
+        # fourth.exec_()
 
         #     print('')
         # fourth.exec_()
@@ -143,7 +178,7 @@ class Ui_mainwindow(object):
         self.Welcome_tite.setText(_translate("mainwindow", "欢迎使用智能安防系统"))
 
 
-from 毕设.毕设.My_class.Mainwin import *
+from Intelligent.My_Pro.My_class.Mainwin import *
 
 if __name__=='__main__':
     app = QtWidgets.QApplication(sys.argv)

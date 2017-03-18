@@ -1,0 +1,4 @@
+*.pyc
+*.ui
+*.png
+*/__pycache__

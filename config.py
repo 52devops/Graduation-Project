@@ -113,7 +113,7 @@ class Ui_config_ui(object):
             QMessageBox.warning(self.ui,'Warning','请输入正确的格式')
         else:
             # pro = pickle.dumps(data)
-            f = open('config.txt','wb')
+            f = open('config.ini','wb')
             pickle.dump(data,f)
             f.close()
             self.ui.close()
@@ -134,7 +134,7 @@ class Ui_config_ui(object):
         self.label.setText(_translate("config_ui", "报警邮箱："))
 
 
-from 毕设.毕设.My_class.Mainwin import *
+from Intelligent.My_Pro.My_class.Mainwin import *
 
 if __name__=='__main__':
     app = QtWidgets.QApplication(sys.argv)
