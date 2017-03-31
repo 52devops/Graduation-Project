@@ -1,14 +1,14 @@
 import numpy
 import cv2
 from Intelligent.My_Pro import SendMail
-def match(img1=r'C:/Users/tiehu/Desktop/project/OpenCV/2.jpg',img2=r'C:\Users\\tiehu\Desktop\project\OpenCV\4.jpg'):
-    opencv_haystack = cv2.imread(img1)
-    opencv_needle = cv2.imread(img2)
+def match(img1,img2):
+    opencv_haystack = cv2.imread(img1,1)
+    opencv_needle = cv2.imread(img2,1)
     ngrey = cv2.cvtColor(opencv_needle, cv2.COLOR_BGR2GRAY)
     hgrey = cv2.cvtColor(opencv_haystack, cv2.COLOR_BGR2GRAY)
 
     # build feature detector and descriptor extractor
-    hessian_threshold = 85
+    hessian_threshold = 250
     detector = cv2.xfeatures2d.SURF_create(hessian_threshold)
     (hkeypoints, hdescriptors) = detector.detectAndCompute(hgrey,None,useProvidedKeypoints = False)
     (nkeypoints, ndescriptors) = detector.detectAndCompute(ngrey,None,useProvidedKeypoints = False)
@@ -62,9 +62,11 @@ def match(img1=r'C:/Users/tiehu/Desktop/project/OpenCV/2.jpg',img2=r'C:\Users\\t
     # cv2.imshow("The match Result", opencv_needle)
     # cv2.waitKey(0)
 
-    # print(count)
-    if count > 60:
-        SendMail.Sendmail(img1,img2)
+    print("%s--%s--%s"%(img1,img2,count))
+    if count > 80:
+        return True
+        # SendMail.Sendmail(img1,img2)
 
 if __name__ == '__main__':
-    match()
+    if match('C:\\Users\\tiehu\\Desktop\\project\\Intelligent\\My_Pro\\Pic\\2.jpg','C:\\Users\\tiehu\\Desktop\\project\\Intelligent\\My_Pro\\face_data\\1.jpg'):
+        print('aaaaaaaaaa')

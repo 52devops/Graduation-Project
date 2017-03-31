@@ -21,7 +21,6 @@ class My_DB(object):
         args = (name,self.data)
         self.cursor.execute(command,args)
         self.db.commit()
-        self.db.close()
     def check(self,command):
         self.cursor.execute(command)
         self.db.close()
@@ -41,11 +40,11 @@ class My_DB(object):
         name_data = dict(zip(name,data))
         path = os.getcwd()
         for i in name_data.keys():
-            print(i)
+            # print(i)
             filname = path + "\\" + "Pic" + "\\" + i
             f = open(filname,'wb')
             f.write(name_data[i])
-            print(name_data[i])
+            # print(name_data[i])
             f.close()
         self.db.close()
 if __name__ == '__main__':

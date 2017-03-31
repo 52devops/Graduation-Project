@@ -2,9 +2,9 @@ import smtplib
 import email.mime.multipart
 import email.mime.text
 import pickle
-def Sendmail(src,dest):
+def Sendmail(src=1,dest=1):
     f = open('config.ini','rb')
-    data = pickle.dump(f)
+    data = pickle.load(f)
     f.close()
     mail = data['mail']
     msg = email.mime.multipart.MIMEMultipart()
@@ -13,14 +13,16 @@ def Sendmail(src,dest):
     msg['subject'] = 'Warning'
     content = '''''
 
-            %s match %s
+            %s样本图片与刚刚抓取的%s图像匹配，请注意。
     '''%(src,dest)
     txt = email.mime.text.MIMEText(content)
     msg.attach(txt)
-
     smtp = smtplib
     smtp = smtplib.SMTP()
     smtp.connect('smtp.163.com', 25)
     smtp.login(mail, 'wang3157')
     smtp.sendmail(mail, [mail],msg.as_string())
     smtp.quit()
+
+if __name__ == '__main__':
+    Sendmail()

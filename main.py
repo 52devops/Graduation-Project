@@ -1,11 +1,4 @@
 # -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'test.ui'
-#
-# Created by: PyQt5 UI code generator 5.4.1
-#
-# WARNING! All changes made in this file will be lost!
-
 from Intelligent.My_Pro.config import *
 from Intelligent.My_Pro.Icon import icon
 from Intelligent.My_Pro.Readme import Ui_Readme
@@ -13,7 +6,8 @@ from Intelligent.My_Pro.Opera_DB import My_DB
 from Intelligent.My_Pro.ProgressBar import ProgressBar
 from Intelligent.My_Pro.match import match
 from Intelligent.My_Pro.face import face_det
-import re,os,shutil,threading
+from Intelligent.My_Pro import SendMail
+import re,os,sys,shutil,threading
 import pickle,time,threading
 class Ui_mainwindow(object):
     def setupUi(self, mainwindow):
@@ -127,15 +121,18 @@ class Ui_mainwindow(object):
             db.push(filename,path)
 
     def start(self):
-        Total_file = []
+        Total_Template = []
+        Total_data = []
         db = My_DB()
+        match_count = 0
         # count = db.check('select count(*) from Pic')
         reply = QMessageBox.question(self.ui, 'Message', '是否拉取远端数据',
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if reply == QMessageBox.Yes:
             filename  = os.getcwd()
             filename =  filename + "\\" + "Pic" + "\\"
-            shutil.rmtree(filename)
+            if os.path.exists(filename):
+                shutil.rmtree(filename)
             os.mkdir(filename)
             # os.remove()
             db.pull()
@@ -144,7 +141,21 @@ class Ui_mainwindow(object):
         Go = face_det()
         Go.To_start()
         for root, dirs, file in os.walk(r"C:\Users\\tiehu\Desktop\project\Intelligent\My_Pro\Pic"):
-            Total_file.append(r"C:\Users\tiehu\Desktop\project\Intelligent\My_Pro\Pic" + '\\' + file[0])
+            for i in file:
+                Total_Template.append(r"C:\Users\tiehu\Desktop\project\Intelligent\My_Pro\Pic" + '\\' + i)
+        for root, dirs, file in os.walk(r"C:\Users\\tiehu\Desktop\project\Intelligent\My_Pro\face_data"):
+            for i in file:
+                Total_data.append(r"C:\Users\tiehu\Desktop\project\Intelligent\My_Pro\face_data" + '\\' + i)
+        Total_match_count = len(Total_Template) * len(Total_data)
+        Total_s_data = []
+        Total_s_data = [ (x,y) for x in Total_Template for y in Total_data]
+        for i in Total_s_data:
+            if match(i[0],i[1]):
+                print('匹配到数据，已发送报警邮件')
+                SendMail.Sendmail(i[0],i[1])
+            # else:
+                # print('没有匹配到数据')
+        sys.exit()
         # file_match, ok1 = QFileDialog.getOpenFileName(self.ui,
         #                                           "选择图像",
         #                                           "C:/",
@@ -158,15 +169,11 @@ class Ui_mainwindow(object):
         # t = threading.Thread(target=loop,name='match')
         # t.start()
         # t.join()
-
-
         # fourth = My_dia()
         # Start = ProgressBar(fourth)
         # fourth.exec_()
-
         #     print('')
         # fourth.exec_()
-
     def retranslateUi(self, mainwindow):
         _translate = QtCore.QCoreApplication.translate
         mainwindow.setWindowTitle(_translate("mainwindow", "MainWindow"))

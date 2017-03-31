@@ -1,19 +1,8 @@
-#!/usr/bin/env python
-
-'''
-face detection using haar cascades
-
-USAGE:
-    facedetect.py [--cascade <cascade_fn>] [--nested-cascade <cascade_fn>] [<video_source>]
-'''
-
-# Python 2/3 compatibility
-# from __future__ import print_function
-
 import cv2
 from Intelligent.My_Pro.video import create_capture
 import os
 import sys, getopt
+import time
 from Intelligent.My_Pro.common import clock, draw_str
 
 
@@ -50,26 +39,30 @@ class face_det():
         time = 0
         dirname = os.getcwd()
         while True:
-            count += 1
             ret, img = cam.read()
             # gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             # gray = cv2.equalizeHist(gray)
-
+            count += 1
             # t = clock()
             # rects = self.detect(gray, cascade)
             rects = self.detect(img, cascade)
             vis = img.copy()
             self.draw_rects(vis, rects, (0, 255, 0))
             if not nested.empty():
+
                 for x1, y1, x2, y2 in rects:
                     # roi = gray[y1:y2, x1:x2]
                     roi = img[y1:y2, x1:x2]
-                    if count == 30:
-                        # print("%s\\face_data\\%s.jpg"%(dirname,time))
+                    if count%30 == 0:
+
                         # cv2.imwrite("%s\\face_data\\%s.jpg"%(dirname,time),gray)
-                        cv2.imwrite("%s\\face_data\\%s.jpg"%(dirname, time),img)
-                        count = 0
-            time += 1
+                        cv2.imwrite("%s\\face_data\\%s.jpg"%(dirname, time),roi)
+                        # return
+                        # count = 0
+                        time += 1
+                        if  time%5 == 0:
+                            cv2.destroyAllWindows()
+                            return
             #         roi = gray[y1:y2, x1:x2]
                     # vis_roi = vis[y1:y2, x1:x2]
                     # subrects = detect(roi.copy(), nested)
